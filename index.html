@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Invitación al cumpleaños de Pedro!</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Estilos Generales y Fondo Parallax --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body {
+            background-image: url('assets/wallpaper.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #0a0a0a;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(0,0,0,0.3) 0%, 
+                rgba(0,0,0,0.1) 50%, 
+                rgba(0,0,0,0.4) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- Partículas Flotantes --- */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,215,0,0.9), rgba(255,140,0,0.5), transparent);
+            border-radius: 50%;
+            animation: float 12s infinite ease-in-out;
+            filter: blur(2px);
+        }
+
+        .particle:nth-child(1) { width: 15px; height: 15px; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 20px; height: 20px; left: 30%; animation-delay: 2s; }
+        .particle:nth-child(3) { width: 10px; height: 10px; left: 50%; animation-delay: 4s; }
+        .particle:nth-child(4) { width: 18px; height: 18px; left: 70%; animation-delay: 1s; }
+        .particle:nth-child(5) { width: 12px; height: 12px; left: 90%; animation-delay: 3s; }
+        .particle:nth-child(6) { width: 16px; height: 16px; left: 20%; animation-delay: 5s; }
+        .particle:nth-child(7) { width: 14px; height: 14px; left: 60%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { width: 22px; height: 22px; left: 80%; animation-delay: 4.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg) scale(0); opacity: 0; }
+            10% { opacity: 1; transform: translateY(90vh) rotate(45deg) scale(1); }
+            90% { opacity: 0.8; transform: translateY(-10vh) rotate(315deg) scale(1.2); }
+            100% { transform: translateY(-20vh) rotate(360deg) scale(0); opacity: 0; }
+        }
+
+        /* --- Contenedor Principal SIN fondo blanco --- */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px 30px;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Encabezado con Efecto 3D --- */
+        header {
+            text-align: center;
+            padding-bottom: 30px;
+            margin-bottom: 50px;
+            animation: slideDown 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s both;
+            position: relative;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100px) rotateX(-90deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg);
+            }
+        }
+
+        header img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8),
+                        0 0 80px rgba(255,215,0,0.4);
+            filter: brightness(1.1);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { 
+                box-shadow: 0 20px 60px rgba(0,0,0,0.8),
+                            0 0 80px rgba(255,215,0,0.4);
+            }
+            50% { 
+                box-shadow: 0 20px 60px rgba(0,0,0,0.8),
+                            0 0 120px rgba(255,215,0,0.7),
+                            0 0 160px rgba(255,140,0,0.5);
+            }
+        }
+
+        header img:hover {
+            transform: scale(1.08) rotateY(5deg) rotateX(5deg);
+            box-shadow: 0 30px 100px rgba(0,0,0,0.9),
+                        0 0 150px rgba(255,215,0,0.8);
+            filter: brightness(1.3) saturate(1.2);
+        }
+
+        /* --- Estilos del Texto de Invitación --- */
+        .invitacion {
+            text-align: center;
+            font-size: 1.3em;
+            margin-bottom: 60px;
+            animation: fadeIn 1.5s ease-out 0.6s both;
+            text-shadow: 0 0 30px rgba(223, 112, 9, 0.8);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .invitacion h1 {
+            font-family: 'Rubik Mono One', 'Impact', sans-serif;
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #FFD700, #FF8C00, #FFD700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+            animation: bounceHard 1.5s ease-in-out infinite, gradientShift 4s ease infinite;
+            filter: drop-shadow(0 0 20px rgba(255,215,0,0.8));
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        @keyframes bounceHard {
+            0%, 100% { transform: translateY(0) scale(1); }
+            25% { transform: translateY(-20px) scale(1.05); }
+            50% { transform: translateY(-10px) scale(1.03); }
+            75% { transform: translateY(-15px) scale(1.04); }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .invitacion h1::after {
+            content: '🎉';
+            position: absolute;
+            right: -60px;
+            top: -20px;
+            font-size: 1em;
+            animation: spinWild 2s linear infinite;
+            filter: drop-shadow(0 0 15px rgba(255,215,0,0.9));
+        }
+
+        @keyframes spinWild {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.3); }
+            50% { transform: rotate(180deg) scale(1); }
+            75% { transform: rotate(270deg) scale(1.3); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .invitacion p {
+            animation: slideInLeft 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.8s both;
+            color: #fff;
+            font-size: 1.1em;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.9),
+                         0 0 30px rgba(255,215,0,0.3);
+            font-weight: 500;
+        }
+
+        .invitacion p:nth-child(3) {
+            animation: slideInRight 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1s both;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px) rotateY(-30deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) rotateY(0deg);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px) rotateY(30deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) rotateY(0deg);
+            }
+        }
+
+        /* --- Secciones con Entrada Dramática --- */
+        .torneo, .lugar {
+            margin-bottom: 60px;
+            animation: fadeInScale 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+        }
+
+        .torneo { animation-delay: 1.3s; }
+        .lugar { animation-delay: 1.6s; }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotateX(-60deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotateX(0deg);
+            }
+        }
+
+        .section-header {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.7),
+                        0 0 60px rgba(255,215,0,0.3);
+            animation: floatImage 6s ease-in-out infinite;
+        }
+
+        @keyframes floatImage {
+            0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+            50% { transform: translateY(-15px) rotateZ(2deg); }
+        }
+
+        .section-header:hover {
+            transform: translateY(-20px) scale(1.05) rotateZ(-2deg);
+            filter: brightness(1.3) saturate(1.3);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.9),
+                        0 0 100px rgba(255,215,0,0.6);
+        }
+
+        .torneo h3, .lugar h3 {
+            font-family: 'Rubik Mono One', 'Impact', sans-serif;
+            font-size: 2.2em;
+            background: linear-gradient(135deg, #FF6B6B, #FFD700, #FF6B6B);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
+            animation: gradientShift 3s ease infinite;
+            filter: drop-shadow(0 0 15px rgba(255,107,107,0.6));
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .torneo h3::before, .lugar h3::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                #FFD700, 
+                #FF8C00,
+                #FFD700,
+                transparent);
+            animation: shimmerFast 2s infinite;
+            box-shadow: 0 0 20px rgba(255,215,0,0.8);
+        }
+
+        @keyframes shimmerFast {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+
+        /* --- Listas Ultra Mejoradas --- */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.15) 0%, 
+                rgba(255, 140, 0, 0.1) 100%);
+            margin-bottom: 18px;
+            padding: 20px 25px;
+            border-radius: 15px;
+            border-left: 5px solid #FFD700;
+            font-weight: 500;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+            animation: slideInItem 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            color: #fff;
+            font-size: 1.05em;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        ul li:nth-child(1) { animation-delay: 0.1s; }
+        ul li:nth-child(2) { animation-delay: 0.25s; }
+        ul li:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes slideInItem {
+            from {
+                opacity: 0;
+                transform: translateX(-80px) rotateY(-45deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) rotateY(0deg);
+            }
+        }
+
+        ul li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 215, 0, 0.4), 
+                rgba(255, 140, 0, 0.4),
+                transparent);
+            transition: left 0.6s ease;
+        }
+
+        ul li:hover {
+            transform: translateX(20px) scale(1.05);
+            box-shadow: 0 10px 50px rgba(255,215,0,0.5),
+                        0 0 60px rgba(255,140,0,0.4);
+            border-left-width: 8px;
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.3) 0%, 
+                rgba(255, 140, 0, 0.25) 100%);
+        }
+
+        ul li:hover::before {
+            left: 100%;
+        }
+
+        ul li strong {
+            color: #FFD700;
+            filter: drop-shadow(0 0 10px rgba(255,215,0,0.8));
+        }
+
+        /* --- Mapa con Efecto Hover Extremo --- */
+        .lugar p {
+            color: #fff;
+            font-size: 1.1em;
+            text-shadow: 0 3px 12px rgba(0,0,0,0.9);
+            margin-bottom: 25px;
+        }
+
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8),
+                        0 0 80px rgba(255,215,0,0.3);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: floatMap 8s ease-in-out infinite;
+        }
+
+        @keyframes floatMap {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .map-container:hover {
+            transform: scale(1.05) translateY(-15px) rotateZ(-1deg);
+            box-shadow: 0 30px 100px rgba(0,0,0,0.9),
+                        0 0 120px rgba(255,215,0,0.6);
+        }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: brightness(0.95) saturate(1.2);
+            transition: filter 0.4s ease;
+        }
+
+        .map-container:hover iframe {
+            filter: brightness(1.1) saturate(1.4);
+        }
+
+        /* --- Reproductor de Música OCULTO --- */
+        #music-player {
+            display: none; /* Ocultar completamente el reproductor */
+        }
+
+        /* --- Confetti decorativo --- */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confettiFall 5s linear infinite;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* --- PARALLAX EFFECT --- */
+        .parallax-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/wallpaper.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            will-change: transform;
+            z-index: -1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Capa de Parallax -->
+    <div class="parallax-layer" id="parallaxBg"></div>
+
+    <script>
+        // Efecto Parallax en el fondo
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.getElementById('parallaxBg');
+            const speed = 0.5; // Velocidad del parallax
+            parallax.style.transform = 'translateY(' + (scrolled * speed) + 'px)';
+        });
+
+        // Reproducir música automáticamente al cargar la página
+        window.addEventListener('load', function() {
+            const audio = document.getElementById('music-player');
+            // Intentar reproducir (algunos navegadores requieren interacción del usuario)
+            audio.play().catch(function(error) {
+                console.log('Autoplay fue bloqueado por el navegador:', error);
+                // Si falla, intentar cuando el usuario haga clic en cualquier parte
+                document.body.addEventListener('click', function() {
+                    audio.play();
+                }, { once: true });
+            });
+        });
+    </script>
+
+    <!-- Partículas flotantes -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <audio id="music-player" controls autoplay loop>
+        <source src="assets/Musica.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <header>
+        <img src="assets/pedro.png" alt="Feliz Cumpleaños Pedro" style="width:100%; max-width:1024px; height:auto;">
+    </header>
+
+    <main class="content-wrapper">
+
+        <section class="invitacion">
+            <h1>¡Estás invitado!</h1>
+            <p>Estas cordialmente invitado a celebrar el cumpleaños de <strong>Pedro Soto Juarez</strong> este <strong>30 de Noviembre</strong>.</p>
+            <p>Acompañanos a vivir este gran dia para festejar un año más de vida.</p>
+        </section>
+
+        <section class="torneo">
+            <img src="assets/reglas.png" alt="Reglas del Torneo" class="section-header">
+            
+            <h3>Reglas</h3>
+            <ul>
+                <li>🎮 30 min todos vs todos</li>
+                <li>🏆 Semifinales top 4 (mejor de 3)</li>
+                <li>👑 Final (mejor de 5)</li>
+            </ul>
+
+            <h3>Premios</h3>
+            <ul>
+                <li><strong>🥇 Primer Lugar:</strong> ¡Comes gratis!</li>
+                <li><strong>🥈 Segundo Lugar:</strong> Cafe Loft</li>
+                <li><strong>🥉 Tercer Lugar:</strong> Plato Calandrias</li>
+            </ul>
+        </section>
+
+        <section class="lugar">
+            <img src="assets/lugar.png" alt="Lugar del Evento" class="section-header">
+
+            <h3>📍 Lugar: Mr Pampas Garza Sada</h3>
+            <p>Av. Eugenio Garza Sada 3555, Contry, 64860 Monterrey, N.L.</p>
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3596.082718105068!2d-100.2858129849806!3d25.66851608368087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662c081822c5969%3A0x6d111005f1f3e79!2sMr.%20Pampas%20-%20Garza%20Sada!5e0!3m2!1ses-419!2smx!4v1668388836511!5m2!1ses-419!2smx" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
